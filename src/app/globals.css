@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+/* Light mode */
+:root {
+  --background: linear-gradient(to top right, #dbeafe, #e9d5ff); /* from-blue-100 to-purple-200 */
+  --foreground: #1f2937; /* text-gray-800 */
+}
+
+/* Dark mode override 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}*/
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
+html {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Apply background, text color, and font globally */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+}
