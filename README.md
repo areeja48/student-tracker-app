@@ -1,206 +1,134 @@
-# 🎓 Student Tracker App
+# 🎓 Student Tracker App A full-featured student tracking web application built with **Next.js (App Router)**, **MongoDB**, and **NextAuth.js**. The app includes authentication, CRUD management of courses, assignments, and activities, and a dashboard with interactive visualizations of progress and deadlines. --- ## 🚀 Live Demo > (https://student-tracker-taupe.vercel.app/) ---
+## 📦 Features ### 
+🔐 Authentication - Login & Register using 
+**NextAuth.js (credentials provider)**
+- Secure password hashing & session management
+- - Protected routes with session-base access control
+- - Forgot Password & Reset Password functionality with token
+### 📊 Dashboard 
+- Personalized dashboard showing:
+- - User's **account details** - 
+**Course progress** (bar chart)
+- **Assignment stats** (pie chart)
+- - **Activity stats** (donut chart)
+- - Data visualizations powered by **Chart.js** 
+### 📅 Calendar Integration 
+- View upcoming **assignments** and **activities**
+- - Integrated with **FullCalendar**
+  - - CRUD items appear in real-time
+    - - Uses **Flatpickr** for selecting due dates in forms
+### 🧠 Management Panels (CRUD) Manage your academic data with full CRUD operations: 
+- **Courses**
+-  - **Assignments**
+   - - **Activities**
+     -  Each item links to its:
+     -  - Create
+        - - Read (details)
+          - - Update
+            - - Delete pages 
+### 💻 Layout & UI 
+- Global **dark/light mode** toggle with persistent theme - Sidebar navigation (Dashboard, Courses, Assignments, Activities, Progress)
+- - Header displaying user’s name, email, and logout button - 
+###Tailwind CSS for modern UI styling --- 
+## 🧰 Tech Stack | Technology | Description | |-----------------|------------------------------------| |
+**Next.js 15** | App Router + Server/Client support | | 
+**MongoDB Atlas** | Cloud database for all data | | 
+**NextAuth.js** | Authentication | | 
+**Tailwind CSS**| Styling | | 
+**Chart.js** | Charts (bar, pie, donut) | | 
+**FullCalendar**| Calendar view for deadlines | |
+**Flatpickr** | Date/time pickers in forms | | 
+**TypeScript** | Type safety | --- 
+## 🔐 Protected Routes All dashboard-related pages are protected: | Route | Description | |---------------------------|--------------------------------------| | 
+/dashboard | Overview and stats | |
+/dashboard/courses | Manage courses (CRUD) | | 
+/dashboard/assignments | Manage assignments (CRUD) | | 
+/dashboard/activities | Manage activities (CRUD) | | 
+/dashboard/progress | View progress charts | | 
+/dashboard/calendar | Calendar view of due dates | ---
+## 📂 Project Structure student-tracker-app/ 
+├── app/ │ 
+├── auth/ │ 
+├── dashboard/ │ │ 
+├── layout.tsx # Sidebar + Header │ │ └── ... │ 
+├── api/ # API routes (MongoDB) │ └── layout.tsx 
+├── components/ │ ├── Sidebar.tsx │ ├── Header.tsx │ ├── ThemeContext.tsx │ 
+└── charts/ 
+├── lib/ │ └── mongodb.ts # DB connection helper 
+├── public/ 
+├── styles/ │ 
+└── globals.css 
+├── .env.local 
+└── next.config.js
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge&logo=vercel)](https://student-tracker-taupe.vercel.app/)
-[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green?style=for-the-badge&logo=mongodb)](https://www.mongodb.com/atlas)
-[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-blue?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+## ⚙️ Environment Variables Create a .env.local file in the project root:
+env
 
-
-A **full-featured student tracking web app** using **Next.js (App Router)**, **MongoDB**, **NextAuth.js**, and modern libraries like **Chart.js**, **FullCalendar**, and **Flatpickr** for productivity-focused academic tracking.
-
-> 🚀 [Live Demo](https://student-tracker-taupe.vercel.app)
-
----
-
-## 📦 Features
-
-<details>
-<summary><strong>🔐 Authentication</strong></summary>
-
-- NextAuth.js (Credentials Provider)
-- Secure password hashing
-- Protected routes via sessions
-- Forgot/Reset password via token
-
-</details>
-
-<details>
-<summary><strong>📊 Interactive Dashboard</strong></summary>
-
-- View course progress (Bar chart)
-- Assignment stats (Pie chart)
-- Activity stats (Donut chart)
-- Chart.js powered visuals
-
-</details>
-
-<details>
-<summary><strong>📅 Calendar Integration</strong></summary>
-
-- View due dates for assignments/activities
-- Real-time sync with MongoDB
-- Flatpickr for form date pickers
-
-</details>
-
-<details>
-<summary><strong>🧠 Academic Management (CRUD)</strong></summary>
-
-- Courses
-- Assignments
-- Activities
-- Each has Create, Read, Update, Delete operations
-
-</details>
-
-<details>
-<summary><strong>💻 UI/UX</strong></summary>
-
-- Responsive sidebar and header
-- Dark/Light theme toggle (saved in localStorage)
-- Clean layout with Tailwind CSS
-
-</details>
-
----
-
-## 🧰 Tech Stack
-
-| Tech            | Description                              |
-|-----------------|------------------------------------------|
-| **Next.js 15**  | App Router, SSR & Client support         |
-| **MongoDB Atlas** | Cloud DB for storing user data         |
-| **NextAuth.js** | Authentication system                    |
-| **Tailwind CSS**| Utility-first styling                    |
-| **Chart.js**    | Charts for data visualization            |
-| **FullCalendar**| Interactive calendar for tasks           |
-| **Flatpickr**   | Lightweight date/time picker             |
-| **TypeScript**  | Type safety throughout the app           |
-
----
-
-## 🔐 Protected Routes
-
-All dashboard-related routes are **fully protected** via session-based auth.
-
-| Route                       | Description                    |
-|----------------------------|--------------------------------|
-| `/dashboard`               | User overview                  |
-| `/dashboard/courses`       | Course management              |
-| `/dashboard/assignments`   | Assignment management          |
-| `/dashboard/activities`    | Activity tracking              |
-| `/dashboard/progress`      | Visual progress stats          |
-| `/dashboard/calendar`      | Calendar with due dates        |
-
----
-
-## 🗂️ Project Structure
-
-student-tracker-app/
-├── app/
-│ ├── auth/
-│ ├── dashboard/
-│ │ └── layout.tsx # Sidebar + Header
-|   
-├── api/ # MongoDB API routes
-├── components/
-│ ├── Sidebar.tsx
-│ ├── Header.tsx
-│ ├── ThemeContext.tsx 
-│ ├── AssignmentCalendar.tsx
-│ ├── ActivityCalendar.tsx
-│ ├── ChartSection.tsx
-| ├── Loader.tsx
-├── lib/
-│ └── mongodb.ts # DB connector
-| └── auth.ts
-| └── sendEmail.ts
-├── public/
-├──
-│ └── globals.css
-├── .env.local
-├── next.config.js
-
----
-
-## ⚙️ Setup & Configuration
-
-### 🛠️ Environment Variables
-
-Create a `.env.local` file:
-
-```env
-bash
-Copy code
 # MongoDB
-MONGODB_URI=mongodb+srv://<your-cluster>
+MONGODB_URI=mongodb+srv://...
 
-# NextAuth
-NEXTAUTH_PUBLIC_BASE_URL=http://localhost:3000
+# Auth
+NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=your-secret
 
-# Optional: SMTP for password reset
-EMAIL_USER=....
-EMAIL_PASS=....
+# Email for password reset (if applicable)
+EMAIL_SERVER=smtp://...
+EMAIL_FROM=noreply@yourapp.com
+
 🧑‍💻 Getting Started
-bash
-Copy code
-# 1. Clone the repository
+
+# 1. Clone the repo
 git clone https://github.com/areeja48/student-tracker-app.git
 cd student-tracker-app
 
 # 2. Install dependencies
 npm install
 
-# 3. Run development server
+# 3. Start development server
 npm run dev
-⚠️ Ensure MongoDB is connected via .env.local
+⚠️ Make sure MongoDB is connected via the .env.local file.
 
-🧪 Production
-bash
+🧪 Production Build
 
-# Build for production
 npm run build
-
-# Start production server
 npm start
-🚀 Deploying to Vercel
-Push your code to GitHub
+🚀 Deployment (Recommended: Vercel)
+Push code to GitHub
 
-Visit vercel.com
+Go to https://vercel.com
 
-Import your repo and set environment variables
+Import your GitHub repo
 
-Click Deploy 🎉
+Set environment variables in the dashboard
 
-📈 Charts & Visualizations
-Chart	Description
+Deploy 🎉
+
+🧮 Charts & Visualizations
+Chart Type	Data Source
 Bar Chart	Course progress
-Pie Chart	Assignment distribution
-Donut Chart	Activity overview
+Pie Chart	Assignment count
+Donut Chart	Activity count
 
-Charts use real-time data from MongoDB and render via Chart.js in /dashboard/progress.
+Data is fetched from MongoDB and rendered using Chart.js in the /dashboard/progress route.
 
-📅 Calendar Features
-Powered by FullCalendar
+📅 Calendar & Scheduling
+View upcoming assignments and activities
 
-Add/edit/delete assignments & activities
+Calendar powered by FullCalendar
 
-Date selection via Flatpickr
+Due dates selected via Flatpickr
 
-Calendar auto-refreshes from MongoDB
+Auto-updates from MongoDB collection
 
-🌙 Dark Mode Support
-Toggle in the header
+🌙 Dark Mode
+Toggle available on all pages
 
-Uses React context + localStorage
+Theme state stored in context + local storage
 
-Fully styled via Tailwind's dark mode classes
+Fully styled with Tailwind's dark mode classes
 
-📸 Optional Demo (Add if available)
-<!-- ![Student Tracker Demo](public/demo.gif) -->
-🙋‍♀️ Author
-Built with ❤️ by Areeja Amjad
+🙋‍♂️ Author & Contact
+Built by Areeja Amjad
 
 GitHub: @areeja48
 
