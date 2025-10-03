@@ -33,6 +33,25 @@ async function fetchActivities() {
     if (!res.ok) throw new Error('Failed to fetch activities');
     const data = await res.json();
     setActivities(data);
+
+       // 🔔 Check for pending assignments due in next 24h
+      const now = new Date();
+      const soon = new Date(now.getTime() + 1000 * 60 * 60 * 48); // next 24 hours
+
+      data.forEach((a: Activity) => {
+        if (a.status === 'Pending') {
+          const due = new Date(a.dueDate);
+          if (due >= now && due <= soon) {
+            if (window.electron) {
+              window.electron.send('show-notification', {
+                title: '📌 Activity Due Soon',
+                body: `${a.title} due on ${due.toLocaleString()}`,
+              });
+            }
+          }
+        }
+      });
+
   } catch (err: unknown) {
     if (err instanceof Error) {
       setError(err.message);
@@ -42,6 +61,7 @@ async function fetchActivities() {
   }
   setLoading(false);
 }
+
 
   // Create or Update activity
   async function saveActivity() {

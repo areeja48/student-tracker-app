@@ -11,7 +11,7 @@ export default function Header() {
   }
 
   return (
-   <div className="bg-gradient-to-r from-blue-700 to-purple-700 text-white p-4 sm:p-6 md:p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-y-4 md:gap-y-0 md:gap-x-6">
+   <div className="bg-blue-800 text-white p-4 sm:p-6 md:p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-y-4 md:gap-y-0 md:gap-x-6">
       <div>
         <h1 className="text-4xl font-extrabold flex items-center gap-3 select-none">
           👋 Welcome, {session?.user?.name || "User"}!

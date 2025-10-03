@@ -2,6 +2,7 @@
 import Flatpickr from 'react-flatpickr';
 import 'flatpickr/dist/themes/material_blue.css';
 import { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
 
 type Assignment = {
   _id: string;
@@ -25,6 +26,7 @@ export default function AssignmentsPage() {
     obtainedMarks: '',
   });
   const [editingId, setEditingId] = useState<string | null>(null);
+  const { data: session } = useSession();
 
   useEffect(() => {
     fetchAssignments();
@@ -38,12 +40,31 @@ export default function AssignmentsPage() {
       if (!res.ok) throw new Error('Failed to fetch assignments');
       const data = await res.json();
       setAssignments(data);
+
+      // 🔔 Check for pending assignments due in next 24h
+      const now = new Date();
+      const soon = new Date(now.getTime() + 1000 * 60 * 60 * 48); // next 24 hours
+
+      data.forEach((a: Assignment) => {
+        if (a.status === 'Pending') {
+          const due = new Date(a.dueDate);
+          if (due >= now && due <= soon) {
+            if (window.electron) {
+              window.electron.send('show-notification', {
+                title: '📌 Assignment Due Soon',
+                body: `${a.title} due on ${due.toLocaleString()}`,
+              });
+            }
+          }
+        }
+      });
+
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
       } else {
-      setError('Something went wrong');
-  }
+        setError('Something went wrong');
+      }
     }
     setLoading(false);
   }
@@ -72,7 +93,7 @@ export default function AssignmentsPage() {
       const payload = {
         title,
         instructor,
-        dueDate: new Date(dueDate).toISOString(), 
+        dueDate: new Date(dueDate).toISOString(),
         totalMarks,
         ...(obtainedMarks ? { obtainedMarks } : {}),
         ...(editingId ? { id: editingId } : {}),
@@ -97,10 +118,18 @@ export default function AssignmentsPage() {
         setError(err.message);
       } else {
         setError('Something went wrong');
-  }
+      }
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    if (session?.user?.email && window.electron) {
+      window.electron.send('set-user', session.user.email);
+      console.log('🔐 Sent user email to Electron:', session.user.email);
+    }
+  }, [session]);
+
 
   async function deleteAssignment(id: string) {
     if (!confirm('Are you sure you want to delete this assignment?')) return;
@@ -121,11 +150,11 @@ export default function AssignmentsPage() {
 
       fetchAssignments();
     } catch (err: unknown) {
-        if (err instanceof Error) {
+      if (err instanceof Error) {
         setError(err.message);
-       } else {
-         setError('Something went wrong');
-  }
+      } else {
+        setError('Something went wrong');
+      }
       setLoading(false);
     }
   }
@@ -201,19 +230,18 @@ export default function AssignmentsPage() {
         />
 
         <Flatpickr
-        placeholder='Due Date'
-        options={{ enableTime: true, dateFormat: 'Y-m-d H:i' }}
-        value={form.dueDate ? [new Date(form.dueDate)] : []}  // <-- pass an array or empty array
-        onChange={(dates) => {
-        if (dates.length > 0) {
-        setForm({ ...form, dueDate: dates[0].toISOString() });
-        } else {
-        setForm({ ...form, dueDate: '' }); // clear if no date selected
-        }
-        }}
-        className="w-full mb-4 p-2 text-gray-900 border rounded"
+          placeholder="Due Date"
+          options={{ enableTime: true, dateFormat: 'Y-m-d H:i' }}
+          value={form.dueDate ? [new Date(form.dueDate)] : []}
+          onChange={(dates) => {
+            if (dates.length > 0) {
+              setForm({ ...form, dueDate: dates[0].toISOString() });
+            } else {
+              setForm({ ...form, dueDate: '' });
+            }
+          }}
+          className="w-full mb-4 p-2 text-gray-900 border rounded"
         />
-
 
         <input
           type="number"

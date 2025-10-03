@@ -197,8 +197,7 @@ Uses React context + localStorage
 
 Fully styled via Tailwind's dark mode classes
 
-📸 Optional Demo (Add if available)
-<!-- ![Student Tracker Demo](public/demo.gif) -->
+
 🙋‍♀️ Author
 Built with ❤️ by Areeja Amjad
 

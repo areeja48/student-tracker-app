@@ -82,6 +82,50 @@ export default function LoginPage() {
           Sign up
         </Link>
       </p>
+      <button
+      onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
+      className="w-full flex items-center mt-5 justify-center gap-3 border border-gray-300 rounded-md px-4 py-2 bg-white text-gray-700 hover:bg-gray-100 shadow-md transition-colors duration-200 font-medium"
+    >
+      {/* Clean Google G logo */}
+      <svg
+        className="w-6 h-6"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 46 46"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <defs>
+          <path
+            id="a"
+            d="M44.5 20H24v6h11.9C34.1 31.7 29.2 35 24 35 16.8 35 11 29.2 11 22S16.8 9 24 9c3.7 0 6.9 1.4 9.3 3.7l4-4C33 5.9 28.7 4 24 4 12.95 4 4.5 12.45 4.5 23.5S12.95 43 24 43c11.05 0 19.5-8.45 19.5-19 0-1.3-.15-2.6-.5-3.8z"
+          />
+        </defs>
+        <clipPath id="b">
+          <use href="#a" overflow="visible" />
+        </clipPath>
+        <path
+          fill="#FBBC05"
+          d="M0 37V9l17 14z"
+          clipPath="url(#b)"
+        />
+        <path
+          fill="#EA4335"
+          d="M0 9l17 14 7-6.1L48 14V0H0z"
+          clipPath="url(#b)"
+        />
+        <path
+          fill="#34A853"
+          d="M0 37l30-23 7.9 1L48 0v48H0z"
+          clipPath="url(#b)"
+        />
+        <path
+          fill="#4285F4"
+          d="M48 48L17 24l-4-3 35-10z"
+          clipPath="url(#b)"
+        />
+      </svg>
+      Sign in with Google
+    </button>
     </div>
   );
 }

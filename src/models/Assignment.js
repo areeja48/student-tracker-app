@@ -1,4 +1,5 @@
-import { Schema, model, models } from 'mongoose';
+import pkg from "mongoose";
+const { Schema, model, models } = pkg;
 
 const AssignmentSchema = new Schema({
   userEmail: { type: String, required: true },
@@ -7,12 +8,12 @@ const AssignmentSchema = new Schema({
   dueDate: String,
   totalMarks: Number,
   obtainedMarks: Number,
-    status: {
+  status: {
     type: String,
-    enum: ['Pending', 'Submitted', 'Overdue']
+    enum: ["Pending", "Submitted", "Overdue"],
   },
-
 });
 
-const Assignment = models.Assignment || model('Assignment', AssignmentSchema);
+const Assignment = models.Assignment || model("Assignment", AssignmentSchema);
+
 export default Assignment;

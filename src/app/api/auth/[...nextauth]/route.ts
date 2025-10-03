@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import GoogleProvider from 'next-auth/providers/google';
 import { compare } from 'bcryptjs';
 import connectDB from '@/lib/mongodb'; // ✅ Should connect to your MongoDB
 import User from '@/models/User';       // ✅ Your Mongoose User model
@@ -12,6 +13,7 @@ const handler = NextAuth({
         email: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
+      
       async authorize(credentials) {
         // ✅ Connect to MongoDB
         await connectDB();
@@ -36,6 +38,10 @@ const handler = NextAuth({
           email: user.email,
         };
       },
+    }),
+     GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
 

@@ -10,7 +10,7 @@ export const authOptions: AuthOptions = {
     }),
   ],
   pages: {
-    signIn: '/dashboard',
+    signIn: '/auth/login',
     signOut: '/',
   },
   session: {

@@ -1,12 +1,18 @@
 {
   "name": "student-tracker-app",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "main": "src/electron/main.ts",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "concurrently \"next dev --turbopack\" \"wait-on http://localhost:3000 && electron -r ts-node/register ./src/electron/main.ts\"",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "electron:build": "tsc -p src/electron && electron-builder",
+    "dev:electron": "electron -r ts-node/register src/electron/main.ts"
+  },
+  "_moduleAliases": {
+    "@": "src"
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.19",
@@ -36,9 +42,14 @@
     "@types/nodemailer": "^7.0.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "^9.2.1",
+    "electron": "^38.2.0",
+    "electron-builder": "^26.0.12",
     "eslint": "^9",
     "eslint-config-next": "15.5.2",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
+    "wait-on": "^9.0.1"
   }
 }
