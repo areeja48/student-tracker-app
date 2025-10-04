@@ -1,5 +1,5 @@
-// src/electron/preload.js
-import { contextBridge, ipcRenderer } from "electron";
+/* eslint-disable @typescript-eslint/no-require-imports */
+const { contextBridge, ipcRenderer } =require("electron");
 
 contextBridge.exposeInMainWorld("electron", {
   send: (channel, data) => {
